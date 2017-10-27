@@ -1,7 +1,7 @@
 package com.xiaoxing.gifloadingview;
 
-import android.app.FragmentManager;
 
+import android.support.v4.app.FragmentManager;
 
 /**
  * 描述：
