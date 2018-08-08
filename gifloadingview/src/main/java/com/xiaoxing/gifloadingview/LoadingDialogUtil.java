@@ -34,9 +34,11 @@ public class LoadingDialogUtil {
     public static void dismissDialog() {
         if (mGifLoadingView != null) {
             mGifLoadingView.dismiss();
+            mGifLoadingView = null;
         }
         if (mGifLoadingView2 != null) {
             mGifLoadingView2.dismiss();
+            mGifLoadingView2 = null;
         }
     }
 

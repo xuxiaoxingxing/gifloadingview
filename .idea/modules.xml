@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Xiaoxing_GifLoadingView.iml" filepath="$PROJECT_DIR$/Xiaoxing_GifLoadingView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gifloadingview/gifloadingview.iml" filepath="$PROJECT_DIR$/gifloadingview/gifloadingview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gifloadingview.iml" filepath="$PROJECT_DIR$/gifloadingview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gifloadingview/gifloadingview-gifloadingview.iml" filepath="$PROJECT_DIR$/gifloadingview/gifloadingview-gifloadingview.iml" />
     </modules>
   </component>
 </project>
