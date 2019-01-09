@@ -25,9 +25,11 @@ public class LoadingDialogUtil {
 
     public static void showGifdialog2(FragmentManager fragmentManager, int intRes) {
 
-        mGifLoadingView2 = new GifLoadingView1();
-        mGifLoadingView2.setImageResource(intRes);
-        mGifLoadingView2.show(fragmentManager, "");
+        if (mGifLoadingView2 == null) {
+            mGifLoadingView2 = new GifLoadingView1();
+            mGifLoadingView2.setImageResource(intRes);
+            mGifLoadingView2.show(fragmentManager, "");
+        }
 
     }
 
