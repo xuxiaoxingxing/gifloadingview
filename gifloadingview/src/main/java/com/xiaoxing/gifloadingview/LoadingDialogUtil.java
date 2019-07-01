@@ -28,9 +28,11 @@ public class LoadingDialogUtil {
     }
 
     public static void dismissDialog() {
-        GifLoadingView.getInstance().dismissDialog();
         GifLoadingView1.getInstance().dismissDialog();
+    }
 
+    public static void dismissDialog1() {
+        GifLoadingView.getInstance().dismissDialog();
     }
 
 
