@@ -11,13 +11,9 @@ import android.support.v4.app.FragmentManager;
 public class LoadingDialogUtil {
 
 
-    private static GifLoadingView mGifLoadingView;
-    private static GifLoadingView1 mGifLoadingView2;
-
-
     public static void showGifdialog1(FragmentManager fragmentManager, int intRes) {
 
-        mGifLoadingView = new GifLoadingView();
+        GifLoadingView mGifLoadingView = GifLoadingView.getInstance();
         mGifLoadingView.setImageResource(intRes);
         mGifLoadingView.show(fragmentManager, "");
 
@@ -25,23 +21,16 @@ public class LoadingDialogUtil {
 
     public static void showGifdialog2(FragmentManager fragmentManager, int intRes) {
 
-        if (mGifLoadingView2 == null) {
-            mGifLoadingView2 = new GifLoadingView1();
-            mGifLoadingView2.setImageResource(intRes);
-            mGifLoadingView2.show(fragmentManager, "");
-        }
+        GifLoadingView1 mGifLoadingView2 = GifLoadingView1.getInstance();
+        mGifLoadingView2.setImageResource(intRes);
+        mGifLoadingView2.show(fragmentManager, "");
 
     }
 
     public static void dismissDialog() {
-        if (mGifLoadingView != null) {
-            mGifLoadingView.dismiss();
-            mGifLoadingView = null;
-        }
-        if (mGifLoadingView2 != null) {
-            mGifLoadingView2.dismiss();
-            mGifLoadingView2 = null;
-        }
+        GifLoadingView.getInstance().dismissDialog();
+        GifLoadingView1.getInstance().dismissDialog();
+
     }
 
 

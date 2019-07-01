@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 
-
 import pl.droidsonroids.gif.GifImageView;
 
 /**
@@ -16,91 +15,111 @@ import pl.droidsonroids.gif.GifImageView;
  */
 public class GifLoadingView extends DialogFragment {
 
-  private Dialog mDialog;
-//  private GradientDrawable gd;
-  private int mRadius = 10, tempRadius = 10;
-  private float mDownScaleFactor = 5.0f, tempDownScaleFactor = 5.0f;
-  private boolean mDimming = true;
-  private boolean mBlurredActionBar = false;
-  private int CornerRadius = 30;
-  private int backGroundColor = Color.parseColor("#001991EC");
-  private GifImageView mGifImageView;
-  private int id;
+    private static GifLoadingView sInstance = null;
+    private Dialog mDialog;
+    //  private GradientDrawable gd;
+    private int mRadius = 10, tempRadius = 10;
+    private float mDownScaleFactor = 5.0f, tempDownScaleFactor = 5.0f;
+    private boolean mDimming = true;
+    private boolean mBlurredActionBar = false;
+    private int CornerRadius = 30;
+    private int backGroundColor = Color.parseColor("#001991EC");
+    private GifImageView mGifImageView;
+    private int id;
 
-  @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
-    if (mDialog == null) {
-      mDialog = new Dialog(getActivity(), R.style.gif_dialog);
-      mDialog.setContentView(R.layout.gifloading_main);
-      mDialog.setCanceledOnTouchOutside(true);
-      mDialog.getWindow().setGravity(Gravity.CENTER);
+    public static GifLoadingView getInstance() {
+        if (sInstance == null) {
+            synchronized (GifLoadingView.class) {
+                if (sInstance == null)
+                    sInstance = new GifLoadingView();
+            }
+        }
+        return sInstance;
+    }
+
+    public void dismissDialog() {
+        if (sInstance != null) {
+            dismiss();
+            sInstance = null;
+        }
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (mDialog == null) {
+            mDialog = new Dialog(getActivity(), R.style.gif_dialog);
+            mDialog.setContentView(R.layout.gifloading_main);
+            mDialog.setCanceledOnTouchOutside(true);
+            mDialog.getWindow().setGravity(Gravity.CENTER);
 //      gd = new GradientDrawable();
 //      gd.setCornerRadius(CornerRadius);
-      mGifImageView = (GifImageView) mDialog.findViewById(R.id.gifImageView);
-      if (id == 0) {
-        id = R.drawable.m;
-      }
-      setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
-      mGifImageView.setImageResource(id);
+            mGifImageView = (GifImageView) mDialog.findViewById(R.id.gifImageView);
+            if (id == 0) {
+                id = R.drawable.m;
+            }
+            setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
+            mGifImageView.setImageResource(id);
 //      gd.setColor(backGroundColor);
 //      mDialog.findViewById(R.id.mBackground).setBackground(gd);
+        }
+        return mDialog;
     }
-    return mDialog;
-  }
 
-  private void setResource() {
-    if (mDialog == null) {
-      return;
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        mDialog = null;
     }
-    setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
-    mGifImageView.setImageResource(id);
+
+    public void setBackGroundColor(int backGroundColor) {
+        this.backGroundColor = backGroundColor;
 //    gd.setColor(backGroundColor);
 //    mDialog.findViewById(R.id.mBackground).setBackground(gd);
-  }
+    }
 
-  @Override public void onDismiss(DialogInterface dialog) {
-    super.onDismiss(dialog);
-    mDialog = null;
-  }
+    public void setImageResource(int id) {
+        this.id = id;
+        setResource();
+    }
 
-  public void setImageResource(int id) {
-    this.id = id;
-    setResource();
-  }
-
-  public void setBackgroundResource(int id) {
-    this.id = id;
-    setResource();
-  }
-
-  public GifImageView getmGifImageView() {
-    return mGifImageView;
-  }
-
-  public void setBlurredActionBar(boolean mBlurredActionBar) {
-    this.mBlurredActionBar = mBlurredActionBar;
-  }
-
-  public void setCornerRadius(int cornerRadius) {
-    CornerRadius = cornerRadius;
-  }
-
-  public void setBackGroundColor(int backGroundColor) {
-    this.backGroundColor = backGroundColor;
+    private void setResource() {
+        if (mDialog == null) {
+            return;
+        }
+        setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
+        mGifImageView.setImageResource(id);
 //    gd.setColor(backGroundColor);
 //    mDialog.findViewById(R.id.mBackground).setBackground(gd);
-  }
+    }
 
-  public void setRadius(int mRadius) {
-    this.mRadius = mRadius;
-  }
+    public void setBackgroundResource(int id) {
+        this.id = id;
+        setResource();
+    }
 
-  public void setDownScaleFactor(float mDownScaleFactor) {
-    this.mDownScaleFactor = mDownScaleFactor;
-  }
+    public GifImageView getmGifImageView() {
+        return mGifImageView;
+    }
 
-  public void setDimming(boolean mDimming) {
-    this.mDimming = mDimming;
-  }
+    public void setBlurredActionBar(boolean mBlurredActionBar) {
+        this.mBlurredActionBar = mBlurredActionBar;
+    }
+
+    public void setCornerRadius(int cornerRadius) {
+        CornerRadius = cornerRadius;
+    }
+
+    public void setRadius(int mRadius) {
+        this.mRadius = mRadius;
+    }
+
+    public void setDownScaleFactor(float mDownScaleFactor) {
+        this.mDownScaleFactor = mDownScaleFactor;
+    }
+
+    public void setDimming(boolean mDimming) {
+        this.mDimming = mDimming;
+    }
 
 //  @Override protected boolean isDimmingEnable() {
 //    return mDimming;

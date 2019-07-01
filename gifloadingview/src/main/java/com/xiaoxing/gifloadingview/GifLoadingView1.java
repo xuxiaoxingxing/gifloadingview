@@ -15,7 +15,7 @@ import android.widget.ImageView;
  * Created by Roger on 2016/4/28.
  */
 public class GifLoadingView1 extends DialogFragment {
-
+    private static GifLoadingView1 sInstance = null;
     private Dialog mDialog;
     //  private GradientDrawable gd;
     private int mRadius = 10, tempRadius = 10;
@@ -26,6 +26,44 @@ public class GifLoadingView1 extends DialogFragment {
     private int backGroundColor = Color.parseColor("#001991EC");
     private ImageView mImageView;
     private int id;
+
+    public static GifLoadingView1 getInstance() {
+        if (sInstance == null) {
+            synchronized (GifLoadingView1.class) {
+                if (sInstance == null)
+                    sInstance = new GifLoadingView1();
+            }
+        }
+        return sInstance;
+    }
+
+    public void dismissDialog() {
+        if (sInstance != null) {
+            dismiss();
+            sInstance = null;
+        }
+    }
+
+    public void setImageResource(int id) {
+        this.id = id;
+        setResource();
+    }
+
+    private void setResource() {
+        if (mDialog == null) {
+            return;
+        }
+        setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
+        mImageView.setImageResource(id);
+//    gd.setColor(backGroundColor);
+//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
+    }
+
+    public void setBackGroundColor(int backGroundColor) {
+        this.backGroundColor = backGroundColor;
+//    gd.setColor(backGroundColor);
+//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -52,25 +90,10 @@ public class GifLoadingView1 extends DialogFragment {
         return mDialog;
     }
 
-    private void setResource() {
-        if (mDialog == null) {
-            return;
-        }
-        setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
-        mImageView.setImageResource(id);
-//    gd.setColor(backGroundColor);
-//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
-    }
-
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         mDialog = null;
-    }
-
-    public void setImageResource(int id) {
-        this.id = id;
-        setResource();
     }
 
     public void setBackgroundResource(int id) {
@@ -88,12 +111,6 @@ public class GifLoadingView1 extends DialogFragment {
 
     public void setCornerRadius(int cornerRadius) {
         CornerRadius = cornerRadius;
-    }
-
-    public void setBackGroundColor(int backGroundColor) {
-        this.backGroundColor = backGroundColor;
-//    gd.setColor(backGroundColor);
-//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
     }
 
     public void setRadius(int mRadius) {
