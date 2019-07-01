@@ -37,13 +37,14 @@ public class GifLoadingView extends DialogFragment {
         return sInstance;
     }
 
+
     public void dismissDialog() {
         if (sInstance != null) {
-            if (isAdded())
-                dismiss();
+            dismiss();
             sInstance = null;
         }
     }
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
