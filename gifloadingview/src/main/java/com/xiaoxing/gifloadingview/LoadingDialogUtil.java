@@ -17,8 +17,12 @@ public class LoadingDialogUtil {
         if (mGifLoadingView != null && mGifLoadingView.getDialog() != null && mGifLoadingView.getDialog().isShowing()) {
             mGifLoadingView.dismissDialog();
         } else {
-            mGifLoadingView.setImageResource(intRes);
-            mGifLoadingView.show(fragmentManager, "");
+            if (mGifLoadingView.isAdded()) {
+                mGifLoadingView.dismiss();
+            } else {
+                mGifLoadingView.setImageResource(intRes);
+                mGifLoadingView.show(fragmentManager, "");
+            }
         }
 
     }
@@ -29,8 +33,12 @@ public class LoadingDialogUtil {
         if (mGifLoadingView2 != null && mGifLoadingView2.getDialog() != null && mGifLoadingView2.getDialog().isShowing()) {
             mGifLoadingView2.dismissDialog();
         } else {
-            mGifLoadingView2.setImageResource(intRes);
-            mGifLoadingView2.show(fragmentManager, "");
+            if (mGifLoadingView2.isAdded()) {
+                mGifLoadingView2.dismiss();
+            } else {
+                mGifLoadingView2.setImageResource(intRes);
+                mGifLoadingView2.show(fragmentManager, "");
+            }
         }
 
 
