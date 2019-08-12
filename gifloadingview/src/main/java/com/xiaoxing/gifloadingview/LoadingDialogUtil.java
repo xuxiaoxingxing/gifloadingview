@@ -14,7 +14,7 @@ public class LoadingDialogUtil {
     public static void showGifdialog1(FragmentManager fragmentManager, int intRes) {
 
         GifLoadingView mGifLoadingView = GifLoadingView.getInstance();
-        if (mGifLoadingView.isAdded()) {
+        if (mGifLoadingView != null && mGifLoadingView.getDialog() != null && mGifLoadingView.getDialog().isShowing()) {
             mGifLoadingView.dismissDialog();
         } else {
             mGifLoadingView.setImageResource(intRes);
@@ -26,7 +26,7 @@ public class LoadingDialogUtil {
     public static void showGifdialog2(FragmentManager fragmentManager, int intRes) {
 
         GifLoadingView1 mGifLoadingView2 = GifLoadingView1.getInstance();
-        if (mGifLoadingView2.isAdded()) {
+        if (mGifLoadingView2 != null && mGifLoadingView2.getDialog() != null && mGifLoadingView2.getDialog().isShowing()) {
             mGifLoadingView2.dismissDialog();
         } else {
             mGifLoadingView2.setImageResource(intRes);
