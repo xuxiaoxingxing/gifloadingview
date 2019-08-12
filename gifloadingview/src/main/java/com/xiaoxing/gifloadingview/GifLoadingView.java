@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -37,14 +38,42 @@ public class GifLoadingView extends DialogFragment {
         return sInstance;
     }
 
+    public void showDialog(FragmentManager manager, String tag, int id) {
+        if (isAdded()) {
+            dismissDialog();
+        } else {
+            setImageResource(id);
+            show(manager, tag);
+        }
+    }
+
+    public void setImageResource(int id) {
+        this.id = id;
+        setResource();
+    }
 
     public void dismissDialog() {
         if (sInstance != null && sInstance.getDialog() != null && sInstance.getDialog().isShowing()) {
             dismiss();
-            sInstance = null;
+//            sInstance = null;
         }
     }
 
+    private void setResource() {
+        if (mDialog == null) {
+            return;
+        }
+        setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
+        mGifImageView.setImageResource(id);
+//    gd.setColor(backGroundColor);
+//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
+    }
+
+    public void setBackGroundColor(int backGroundColor) {
+        this.backGroundColor = backGroundColor;
+//    gd.setColor(backGroundColor);
+//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -71,27 +100,6 @@ public class GifLoadingView extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         mDialog = null;
-    }
-
-    public void setBackGroundColor(int backGroundColor) {
-        this.backGroundColor = backGroundColor;
-//    gd.setColor(backGroundColor);
-//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
-    }
-
-    public void setImageResource(int id) {
-        this.id = id;
-        setResource();
-    }
-
-    private void setResource() {
-        if (mDialog == null) {
-            return;
-        }
-        setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
-        mGifImageView.setImageResource(id);
-//    gd.setColor(backGroundColor);
-//    mDialog.findViewById(R.id.mBackground).setBackground(gd);
     }
 
     public void setBackgroundResource(int id) {
