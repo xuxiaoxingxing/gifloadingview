@@ -50,6 +50,7 @@ public class GifLoadingView1 extends DialogFragment {
     public void dismissDialog() {
         if (sInstance != null && sInstance.getDialog() != null && sInstance.getDialog().isShowing()) {
             dismiss();
+            sInstance = null;
         }
     }
 
