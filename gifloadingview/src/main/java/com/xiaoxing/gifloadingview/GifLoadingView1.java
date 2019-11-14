@@ -27,6 +27,7 @@ public class GifLoadingView1 extends DialogFragment {
     private int backGroundColor = Color.parseColor("#001991EC");
     private ImageView mImageView;
     private int id;
+    private Animation rotateAnimation;
 
     public static GifLoadingView1 getInstance() {
         if (sInstance == null) {
@@ -49,8 +50,12 @@ public class GifLoadingView1 extends DialogFragment {
 
     public void dismissDialog() {
         if (sInstance != null && sInstance.getDialog() != null && sInstance.getDialog().isShowing()) {
-            dismiss();
+            rotateAnimation.cancel();
+            mImageView.clearAnimation();
+            mImageView = null;
             sInstance = null;
+            dismiss();
+
         }
     }
 
@@ -76,6 +81,22 @@ public class GifLoadingView1 extends DialogFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (rotateAnimation != null) {
+            rotateAnimation.cancel();
+        }
+
+        if (mImageView != null) {
+            mImageView.clearAnimation();
+            mImageView = null;
+        }
+
+        if (sInstance != null)
+            sInstance = null;
+    }
+
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (mDialog == null) {
             mDialog = new Dialog(getActivity(), R.style.gif_dialog);
@@ -91,8 +112,9 @@ public class GifLoadingView1 extends DialogFragment {
             setBackGroundColor(BitmapUtil.getPixColor(BitmapFactory.decodeResource(getResources(), id)));
             mImageView.setImageResource(id);
 
-            Animation rotateAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_anim);
+            rotateAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_anim);
             mImageView.startAnimation(rotateAnimation);
+
 
 //      gd.setColor(backGroundColor);
 //      mDialog.findViewById(R.id.mBackground).setBackground(gd);
